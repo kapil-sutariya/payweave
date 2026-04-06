@@ -1,23 +1,15 @@
 # Publishing PayWeave Skill to skills.sh
 
-## Step 1 — Move to a separate GitHub repository
+## Step 1 — GitHub repository
 
-Create a new public repository (e.g. `github.com/payweave/payweave-skill`) and copy the contents of this folder into it:
+The skill lives at: **https://github.com/kapil-sutariya/payweave**
 
-```
-payweave-skill/
-├── SKILL.md
-└── steps.md
-```
-
-The repo root should contain `SKILL.md` directly (not nested in a subfolder).
+The repo root must contain `SKILL.md` directly (not nested in a subfolder).
 
 ```bash
-# Example: initialise and push
-git init
+# Push latest changes
 git add .
 git commit -m "feat: add PayWeave agent skill"
-git remote add origin git@github.com:payweave/payweave-skill.git
 git push -u origin main
 ```
 
@@ -36,11 +28,14 @@ Expected output: `✓ payweave — valid skill`.
 ## Step 3 — Test installation locally
 
 ```bash
-# Install from local path
+# Install from local path (all agents)
 npx skills add .
 
+# Install targeting Claude Code specifically
+npx skills add . -a claude-code
+
 # Or install from GitHub after pushing
-npx skills add payweave/payweave-skill
+npx skills add kapil-sutariya/payweave -a claude-code
 ```
 
 Confirm the skill appears in your agent:
@@ -50,11 +45,27 @@ Confirm the skill appears in your agent:
 
 ---
 
+## Step 3b — How consumers install the skill (Claude Code)
+
+Once published to GitHub, consumers install the skill with a single command:
+
+```bash
+# Project-scoped (installs to .claude/skills/ in current directory)
+npx skills add kapil-sutariya/payweave -a claude-code
+
+# Global (available in all projects)
+npx skills add kapil-sutariya/payweave -a claude-code -g
+```
+
+After installation, restart Claude Code and type `/payweave` in the prompt bar.
+
+---
+
 ## Step 4 — Publish to skills.sh
 
 1. Go to **https://skills.sh**
 2. Click **Submit a skill** (or **Add repository**)
-3. Enter your GitHub repository URL: `https://github.com/payweave/payweave-skill`
+3. Enter your GitHub repository URL: `https://github.com/kapil-sutariya/payweave`
 4. skills.sh will auto-detect `SKILL.md` and register the skill
 
 > skills.sh tracks install counts automatically — no additional publish command is needed. The skill appears in the marketplace once the repo is registered and at least one installation is recorded.
@@ -86,9 +97,9 @@ Find the line:
 const skillInstall = `npx skills add payweave/payweave`;
 ```
 
-Update to match your actual org/repo:
+Update to:
 ```ts
-const skillInstall = `npx skills add payweave/payweave-skill`;
+const skillInstall = `npx skills add kapil-sutariya/payweave -a claude-code`;
 ```
 
 ---
