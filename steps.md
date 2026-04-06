@@ -67,7 +67,7 @@ Replace the placeholder URL in `SKILL.md` with the production MCP server URL. Fi
 
 ```
 # Current (placeholder)
-claude mcp add payweave --transport http https://mcp.payweave.app/mcp
+claude mcp add payweave --transport http https://api.payweave.app/mcp
 
 # Update to actual production URL if different
 claude mcp add payweave --transport http https://<your-actual-mcp-domain>/mcp

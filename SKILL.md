@@ -18,8 +18,8 @@ The Skills API is the primary REST interface for discovering all payment-enabled
 
 | Scope | URL |
 |-------|-----|
-| Global (all workspaces) | `GET https://payweave.app/api/discovery/skills` |
-| Workspace-scoped | `GET https://payweave.app/api/discovery/:workspaceId/skills` |
+| Global (all workspaces) | `GET https://api.payweave.app/api/discovery/skills` |
+| Workspace-scoped | `GET https://api.payweave.app/api/discovery/:workspaceId/skills` |
 
 `workspaceId` must be a valid UUID. Returns `404` if the workspace does not exist.
 
@@ -74,8 +74,8 @@ The Skills API is the primary REST interface for discovering all payment-enabled
   "type": "gateway",
   "name": "Sentiment Analysis API",
   "description": "Analyse text sentiment using a fine-tuned model.",
-  "baseUrl": "https://payweave.app/gw/gw_abc123",
-  "openApiUrl": "https://payweave.app/gw/gw_abc123/openapi.json",
+  "baseUrl": "https://api.payweave.app/gw/gw_abc123",
+  "openApiUrl": "https://api.payweave.app/gw/gw_abc123/openapi.json",
   "endpoints": []
 }
 ```
@@ -122,7 +122,7 @@ The Skills API is the primary REST interface for discovering all payment-enabled
 
 ```javascript
 const res = await fetch(
-  'https://payweave.app/api/discovery/skills?type=gateway&limit=20'
+  'https://api.payweave.app/api/discovery/skills?type=gateway&limit=20'
 );
 const data = await res.json();
 
@@ -138,7 +138,7 @@ for (const skill of data.skills) {
 
 ```javascript
 const res = await fetch(
-  'https://payweave.app/api/discovery/skills?search=image+classification'
+  'https://api.payweave.app/api/discovery/skills?search=image+classification'
 );
 const { skills } = await res.json();
 console.log(`Found ${skills.length} matching skills`);
@@ -147,7 +147,7 @@ console.log(`Found ${skills.length} matching skills`);
 #### Fetch all pages
 
 ```javascript
-async function fetchAllSkills(baseUrl = 'https://payweave.app') {
+async function fetchAllSkills(baseUrl = 'https://api.payweave.app') {
   const PAGE = 50;
   let offset = 0;
   const all = [];
@@ -171,7 +171,7 @@ async function fetchAllSkills(baseUrl = 'https://payweave.app') {
 ```javascript
 const workspaceId = '10000001-5eed-4000-a000-000000000001';
 const res = await fetch(
-  `https://payweave.app/api/discovery/${workspaceId}/skills`
+  `https://api.payweave.app/api/discovery/${workspaceId}/skills`
 );
 const { skills } = await res.json();
 ```
@@ -198,17 +198,17 @@ For agents that support MCP (Model Context Protocol), PayWeave exposes the same 
 
 | Scope | URL |
 |-------|-----|
-| Global (all workspaces) | `https://mcp.payweave.app/mcp` |
-| Workspace-scoped | `https://mcp.payweave.app/mcp/{workspaceId}` |
+| Global (all workspaces) | `https://api.payweave.app/mcp` |
+| Workspace-scoped | `https://api.payweave.app/mcp/{workspaceId}` |
 
 ### Quick Setup
 
 ```bash
 # Claude Code
-claude mcp add payweave --transport http https://mcp.payweave.app/mcp
+claude mcp add payweave --transport http https://api.payweave.app/mcp
 
 # Workspace-scoped
-claude mcp add payweave --transport http https://mcp.payweave.app/mcp/<workspaceId>
+claude mcp add payweave --transport http https://api.payweave.app/mcp/<workspaceId>
 ```
 
 ### MCP Tools
@@ -240,7 +240,7 @@ Fetch full details for a single resource by its exact URL.
 **Use when:** you have a specific resource URL from `list_resources` or `find_resources` and need its full schema, example input, or example output before making a paid call.
 
 **Parameters:**
-- `resource_url` — the exact endpoint URL (e.g. `https://payweave.app/gw/gw_abc123/v1/analyse`)
+- `resource_url` — the exact endpoint URL (e.g. `https://api.payweave.app/gw/gw_abc123/v1/analyse`)
 
 ### MCP Response Fields
 
@@ -272,3 +272,4 @@ Each resource item includes:
 - Pricing is settled on-chain via the Tempo network in pathUSD or USDC.e
 - Append `?ref=WALLET_ADDRESS` to any payment URL to earn referral rewards (up to 10%)
 - Failed requests (5xx errors) trigger an automatic on-chain refund to the payer
+yer
